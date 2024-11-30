@@ -3,6 +3,7 @@ package beans.example.model;
 import java.util.List;
 
 public class Order {
+
     private Customer customer;
     private List<Book> books;
 
@@ -12,6 +13,14 @@ public class Order {
     }
 
     // Getters and Setters
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public Customer getCustomer() {
         return customer;
     }

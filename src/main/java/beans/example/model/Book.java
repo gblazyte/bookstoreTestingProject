@@ -1,6 +1,7 @@
 package beans.example.model;
 
 public class Book {
+
     private String title;
     private String author;
     private double price;
@@ -14,6 +15,22 @@ public class Book {
     }
 
     // Getters and Setters
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     public String getTitle() {
         return title;
     }
