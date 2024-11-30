@@ -38,12 +38,15 @@ public class BookstoreGUI {
         JButton checkoutButton = new JButton("Checkout");
         checkoutButton.addActionListener(e -> checkout());
 
+        JButton removeBookButton = new JButton("Remove Book");
+        removeBookButton.addActionListener(e -> removeBook());
 
-        // Panel for buttons (Add Book, View Cart, Checkout)
+        // Panel for buttons (Add Book, View Cart, Checkout, Remove Book)
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addBookButton);
         buttonPanel.add(viewCartButton);
         buttonPanel.add(checkoutButton);
+        buttonPanel.add(removeBookButton);  // Add remove button
 
         // Layout for the frame: add the scrollable book list and the buttons
         frame.setLayout(new BorderLayout());
@@ -113,9 +116,13 @@ public class BookstoreGUI {
         JButton checkoutButton = new JButton("Checkout");
         checkoutButton.addActionListener(e -> checkout());
 
+        JButton removeBookButton = new JButton("Remove Book");
+        removeBookButton.addActionListener(e -> removeBook());
+
         buttonPanel.add(addBookButton);
         buttonPanel.add(viewCartButton);
         buttonPanel.add(checkoutButton);
+        buttonPanel.add(removeBookButton);  // Add remove button
 
         return buttonPanel;
     }
@@ -147,15 +154,17 @@ public class BookstoreGUI {
         }
     }
 
-    public void viewOrderSummary() {
-        if (shoppingCart.getBooks().isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Your cart is empty. Please add books to the cart.");
-        } else {
-            // Create an order to display summary
-            Order order = new Order(new Customer("Customer Name", "email@gmail.com"), shoppingCart.getBooks());
-
-            // Show the order summary in a modal dialog
-            new OrderSummaryWindow(order); // This is the modal dialog
+    public void removeBook() {
+        String isbn = JOptionPane.showInputDialog(frame, "Enter ISBN of the book to remove:");
+        if (isbn != null && !isbn.isEmpty()) {
+            boolean success = bookstore.getInventory().removeBookByISBN(isbn);
+            if (success) {
+                JOptionPane.showMessageDialog(frame, "Book removed successfully.");
+                // Refresh the book list after removal
+                showBooks(bookstore.getInventory().getBooksInInventory());
+            } else {
+                JOptionPane.showMessageDialog(frame, "No book found with that ISBN.");
+            }
         }
     }
 

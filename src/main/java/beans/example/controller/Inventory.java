@@ -40,12 +40,14 @@ public class Inventory {
                 .orElse(null);
     }
 
-    // Optional: Remove a book by ISBN
+    // Remove a book by ISBN
     public boolean removeBookByISBN(String isbn) {
         if (isbn == null || isbn.isEmpty()) {
             return false;
         }
         List<Book> books = bookstore.getBooks();
-        return books.removeIf(book -> book.getIsbn().equals(isbn));
+        // Using removeIf to remove the book that matches the ISBN
+        boolean isRemoved = books.removeIf(book -> book.getIsbn().equals(isbn));
+        return isRemoved; // Return true if a book was removed, otherwise false
     }
 }
