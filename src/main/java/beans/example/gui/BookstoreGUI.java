@@ -35,14 +35,19 @@ public class BookstoreGUI {
     public void showBooks(List<Book> books) {
         StringBuilder sb = new StringBuilder();
         for (Book book : books) {
-            sb.append(book.getTitle()).append(" - ").append(book.getPrice()).append("\n");
+            sb.append("Title: ").append(book.getTitle())
+                    .append(" - Author: ").append(book.getAuthor())
+                    .append(" - ISBN: ").append(book.getIsbn())
+                    .append(" - Price: ").append(book.getPrice())
+                    .append("\n");
         }
         bookListArea.setText(sb.toString());
     }
 
     public void openAddBookWindow() {
-        new AddBookWindow(bookstore.getInventory());
-        showBooks(bookstore.getInventory().getBooksInInventory());
+        new AddBookWindow(bookstore.getInventory(), this);
+//        new AddBookWindow(bookstore.getInventory());
+//        showBooks(bookstore.getInventory().getBooksInInventory());
     }
 
     public void setVisible(boolean visible) {

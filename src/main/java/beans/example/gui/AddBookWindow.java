@@ -14,9 +14,12 @@ public class AddBookWindow {
     private JTextField isbnField;
     private Inventory inventory;
     private JFrame frame;
+    private BookstoreGUI bookstoreGUI;
 
-    public AddBookWindow(Inventory inventory) {
+
+    public AddBookWindow(Inventory inventory, BookstoreGUI bookstoreGUI) {
         this.inventory = inventory;
+        this.bookstoreGUI = bookstoreGUI;
 
         frame = new JFrame("Add Book");
         frame.setSize(300, 200);
@@ -39,7 +42,7 @@ public class AddBookWindow {
 
         JButton addButton = new JButton("Add");
         addButton.addActionListener(e -> addBook());
-        panel.add(new JLabel()); // Empty cell for alignment
+//        panel.add(new JLabel()); // Empty cell for alignment
         panel.add(addButton);
 
         frame.add(panel);
@@ -60,6 +63,8 @@ public class AddBookWindow {
 
             Book book = new Book(title, author, price, isbn);
             inventory.addBookToInventory(book);
+            // Notify BookstoreGUI to refresh the book list
+            bookstoreGUI.showBooks(inventory.getBooksInInventory());
             JOptionPane.showMessageDialog(frame, "Book added successfully!");
             frame.dispose(); // Close the window
         } catch (NumberFormatException e) {
