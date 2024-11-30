@@ -38,12 +38,12 @@ public class BookstoreGUI {
         JButton checkoutButton = new JButton("Checkout");
         checkoutButton.addActionListener(e -> checkout());
 
+
         // Panel for buttons (Add Book, View Cart, Checkout)
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addBookButton);
         buttonPanel.add(viewCartButton);
         buttonPanel.add(checkoutButton);
-
 
         // Layout for the frame: add the scrollable book list and the buttons
         frame.setLayout(new BorderLayout());
@@ -120,10 +120,6 @@ public class BookstoreGUI {
         return buttonPanel;
     }
 
-
-
-
-
     public void openAddBookWindow() {
         new AddBookWindow(bookstore.getInventory(), this);
     }
@@ -137,10 +133,29 @@ public class BookstoreGUI {
         if (shoppingCart.getBooks().isEmpty()) {
             JOptionPane.showMessageDialog(frame, "Your cart is empty. Please add books to the cart.");
         } else {
-            // Create an order and clear the cart
+            // Create an order with a dummy customer (you can add fields for real customer data)
             Order order = new Order(new Customer("Customer Name", "email@gmail.com"), shoppingCart.getBooks());
+
+            // Show order confirmation and total price
             JOptionPane.showMessageDialog(frame, "Order placed successfully!\nTotal: $" + order.getTotalPrice());
-            shoppingCart = new ShoppingCart(); // Reset the cart after checkout
+
+            // Show the order summary in a new window
+            new OrderSummaryWindow(order);
+
+            // Reset the shopping cart after the order is placed
+            shoppingCart = new ShoppingCart();
+        }
+    }
+
+    public void viewOrderSummary() {
+        if (shoppingCart.getBooks().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Your cart is empty. Please add books to the cart.");
+        } else {
+            // Create an order to display summary
+            Order order = new Order(new Customer("Customer Name", "email@gmail.com"), shoppingCart.getBooks());
+
+            // Show the order summary in a modal dialog
+            new OrderSummaryWindow(order); // This is the modal dialog
         }
     }
 
