@@ -4,7 +4,7 @@ import beans.example.controller.Inventory;
 import beans.example.model.Book;
 
 import javax.swing.*;
-import java.util.List;
+import java.awt.*;
 
 public class AddBookWindow {
 
@@ -13,11 +13,12 @@ public class AddBookWindow {
     private JTextField priceField;
     private JTextField isbnField;
     private Inventory inventory;
+    private JFrame frame;
 
     public AddBookWindow(Inventory inventory) {
         this.inventory = inventory;
 
-        JFrame frame = new JFrame("Add Book");
+        frame = new JFrame("Add Book");
         frame.setSize(300, 200);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -26,7 +27,7 @@ public class AddBookWindow {
         priceField = new JTextField(5);
         isbnField = new JTextField(10);
 
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
         panel.add(new JLabel("Title"));
         panel.add(titleField);
         panel.add(new JLabel("Author"));
@@ -38,7 +39,7 @@ public class AddBookWindow {
 
         JButton addButton = new JButton("Add");
         addButton.addActionListener(e -> addBook());
-
+        panel.add(new JLabel()); // Empty cell for alignment
         panel.add(addButton);
 
         frame.add(panel);
@@ -46,13 +47,23 @@ public class AddBookWindow {
     }
 
     private void addBook() {
-        String title = titleField.getText();
-        String author = authorField.getText();
-        double price = Double.parseDouble(priceField.getText());
-        String isbn = isbnField.getText();
+        try {
+            String title = titleField.getText().trim();
+            String author = authorField.getText().trim();
+            String isbn = isbnField.getText().trim();
+            double price = Double.parseDouble(priceField.getText().trim());
 
-        Book book = new Book(title, author, price, isbn);
-        inventory.addBookToInventory(book);
-        JOptionPane.showMessageDialog(null, "Book added successfully!");
+            if (title.isEmpty() || author.isEmpty() || isbn.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "All fields are required.");
+                return;
+            }
+
+            Book book = new Book(title, author, price, isbn);
+            inventory.addBookToInventory(book);
+            JOptionPane.showMessageDialog(frame, "Book added successfully!");
+            frame.dispose(); // Close the window
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid price. Please enter a valid number.");
+        }
     }
 }

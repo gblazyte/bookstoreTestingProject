@@ -1,5 +1,6 @@
 package beans.example.gui;
 
+import beans.example.controller.Inventory;
 import beans.example.model.Book;
 import beans.example.model.Bookstore;
 
@@ -10,8 +11,11 @@ import java.util.List;
 public class BookstoreGUI {
     private JFrame frame;
     private JTextArea bookListArea;
+    private Bookstore bookstore;
 
     public BookstoreGUI(Bookstore bookstore) {
+        this.bookstore = bookstore; // Store the bookstore instance
+
         frame = new JFrame("Bookstore");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -21,7 +25,7 @@ public class BookstoreGUI {
         JScrollPane scrollPane = new JScrollPane(bookListArea);
 
         JButton addBookButton = new JButton("Add Book");
-        addBookButton.addActionListener(e -> openAddBookWindow());
+        addBookButton.addActionListener(e -> openAddBookWindow()); // Link to the add book window
 
         frame.setLayout(new BorderLayout());
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -37,7 +41,8 @@ public class BookstoreGUI {
     }
 
     public void openAddBookWindow() {
-        // Open a window to add new books
+        new AddBookWindow(bookstore.getInventory());
+        showBooks(bookstore.getInventory().getBooksInInventory());
     }
 
     public void setVisible(boolean visible) {

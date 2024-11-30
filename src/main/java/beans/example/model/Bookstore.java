@@ -1,13 +1,17 @@
 package beans.example.model;
 
+import beans.example.controller.Inventory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bookstore {
     private List<Book> books;
+    private Inventory inventory;
 
     public Bookstore() {
-        books = new ArrayList<>();
+        this.books = new ArrayList<>();
+        this.inventory = new Inventory(this);
     }
 
     public void addBook(Book book) {
@@ -25,5 +29,9 @@ public class Bookstore {
             }
         }
         return null;
+    }
+    // Expose the Inventory instance
+    public Inventory getInventory() {
+        return inventory;
     }
 }
