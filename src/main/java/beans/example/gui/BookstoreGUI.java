@@ -55,13 +55,13 @@ public class BookstoreGUI {
             sb.append("Title: ").append(book.getTitle())
                     .append(" - Author: ").append(book.getAuthor())
                     .append(" - ISBN: ").append(book.getIsbn())
-                    .append(" - Price: ").append(book.getPrice())
+                    .append(" - Price: €").append(book.getPrice())
                     .append("\n");
 
             JPanel bookInfoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
             JLabel bookLabel = new JLabel("Title: " + book.getTitle() + " | Author: " + book.getAuthor() +
-                    " | ISBN: " + book.getIsbn() + " | Price: $" + book.getPrice());
+                    " | ISBN: " + book.getIsbn() + " | Price: €" + book.getPrice());
             bookInfoPanel.add(bookLabel);
 
             JButton addToCartButton = new JButton("Add to Cart");
@@ -131,7 +131,7 @@ public class BookstoreGUI {
             JOptionPane.showMessageDialog(frame, "Your cart is empty. Please add books to the cart.");
         } else {
             Order order = new Order(new Customer("Customer Name", "email@gmail.com"), shoppingCart.getBooks());
-            JOptionPane.showMessageDialog(frame, "Order placed successfully!\nTotal: $" + order.getTotalPrice());
+            JOptionPane.showMessageDialog(frame, "Order placed successfully!\nTotal: €" + order.getTotalPrice());
             new OrderSummaryWindow(order);
             shoppingCart = new ShoppingCart();
         }

@@ -61,7 +61,7 @@ public class AddBookWindow {
         // Price field
         gbc.gridx = 0;
         gbc.gridy = 2;
-        panel.add(new JLabel("Price:"), gbc);
+        panel.add(new JLabel("Price: €"), gbc);
         gbc.gridx = 1;
         panel.add(priceField, gbc);
 

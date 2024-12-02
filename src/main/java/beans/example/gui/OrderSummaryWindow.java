@@ -42,7 +42,7 @@ public class OrderSummaryWindow extends JDialog {
         // Loop through books and add them to the panel
         for (Book book : order.getBooks()) {
             JLabel bookDetails = new JLabel("<html>Title: " + book.getTitle() + " | Author: " + book.getAuthor() +
-                    " | ISBN: " + book.getIsbn() + " | Price: $" + book.getPrice() + "</html>");
+                    " | ISBN: " + book.getIsbn() + " | Price: €" + book.getPrice() + "</html>");
             bookDetails.setFont(new Font("Arial", Font.PLAIN, 14)); // Smaller font for book details
             panel.add(bookDetails);
         }
@@ -51,7 +51,7 @@ public class OrderSummaryWindow extends JDialog {
         panel.add(Box.createVerticalStrut(10));
 
         // Add the total price label
-        JLabel totalLabel = new JLabel("Total: $" + order.getTotalPrice());
+        JLabel totalLabel = new JLabel("Total: €" + order.getTotalPrice());
         totalLabel.setFont(new Font("Arial", Font.BOLD, 18)); // Bold font for total price
         panel.add(totalLabel);
 

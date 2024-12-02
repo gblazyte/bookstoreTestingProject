@@ -52,13 +52,13 @@ public class ShoppingCartWindow {
             sb.append("Title: ").append(book.getTitle())
                     .append(" - Author: ").append(book.getAuthor())
                     .append(" - ISBN: ").append(book.getIsbn())
-                    .append(" - Price: $").append(book.getPrice())
+                    .append(" - Price: €").append(book.getPrice())
                     .append("\n");
             total += book.getPrice();
         }
 
         // Add the total price of the cart
-        sb.append("\nTotal: $").append(total);
+        sb.append("\nTotal: €").append(total);
         cartArea.setText(sb.toString());  // Update the cart area with the current cart content
     }
 }
