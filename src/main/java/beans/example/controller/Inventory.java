@@ -15,6 +15,11 @@ public class Inventory {
         this.bookstore = bookstore;
     }
 
+    // Getter for bookstore (to be used in tests)
+    public Bookstore getBookstore() {
+        return bookstore;
+    }
+
     // Add a book to the inventory
     public void addBookToInventory(Book book) {
         if (book == null || book.getTitle() == null || book.getTitle().isEmpty()) {
